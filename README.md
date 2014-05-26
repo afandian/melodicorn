@@ -19,4 +19,6 @@ and
 
 ## Screenshots
 
-![image]("./docs/screenshots/26-05-2014/first.png")
+### First commit
+
+![Screenshot 1](https://raw.githubusercontent.com/afandian/melodicorn/master/docs/screenshots/26-05-2014/first.png)
