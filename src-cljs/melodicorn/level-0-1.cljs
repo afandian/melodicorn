@@ -1,6 +1,5 @@
 (ns melodicorn.level-0-1
-  (:require [melodicorn.util :refer [map-with-accumulator acc-apply inc-2]]))
-
+  (:require [melodicorn.util :as util]))
 
 ; Level 0
 ; This is the pure semantic representation of the music.
@@ -38,28 +37,28 @@
 ; Return [entity accumulator]
 ; Entity is [entity-type x y args]
 
-(defn handle-1-note
+(defn handle-0-note
   [[pitch-class accidentals octave duration-numerator duration-denominator] accumulator]
   ; TODO - pitch, accidentals, everything really.
   [[:note (:x accumulator) 0]
-   (acc-apply accumulator :x inc-2)])
+   (util/acc-apply accumulator :x util/inc-2)])
 
-(defn handle-1-bar
+(defn handle-0-bar
   [_ accumulator]
   [[:bar-line (:x accumulator) 0]
-   (acc-apply accumulator :x inc-2)])
+   (util/acc-apply accumulator :x util/inc-2)])
 
 
-(defn handle-1-double-bar
+(defn handle-0-double-bar
   [_ accumulator]
   [[:double-bar-line (:x accumulator) 0]
-   (acc-apply accumulator :x inc-2)])
+   (util/acc-apply accumulator :x util/inc-2)])
 
 (def dispatch-0-1
   "Mapping of element type to handler function. Function will take element args and accumulator, return same."
-  {:note handle-1-note
-   :bar-line handle-1-bar
-   :double-bar-line handle-1-double-bar})
+  {:note handle-0-note
+   :bar-line handle-0-bar
+   :double-bar-line handle-0-double-bar})
 
 (defn translate-0-1-f
   "This is applied to each element in the input. It stores state between executions in the accumulator."
@@ -78,7 +77,7 @@
 (defn translate-0-1 
     "Translate from Level 0 to Level 1"
     [input]
-    (map-with-accumulator translate-0-1-f initial-translate-0-1-accumulator input))
+    (util/map-with-accumulator translate-0-1-f initial-translate-0-1-accumulator input))
 
 ;(.log js/console "IN" example-level-0)
 ;(.log js/console "OUT" (str (translate-0-1 example-level-0)))

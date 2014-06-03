@@ -1,5 +1,5 @@
 (ns melodicorn.music-theory
-  (:require [clojure.set :refer [map-invert]]))
+  (:require [clojure.set :as set]))
 
 
 (def major-scale [2 2 1 2 2 2 1])
@@ -15,7 +15,7 @@
                            :sharp 1
                            :double-sharp 2})
 
-(def accidental-modifiers-inverse (map-invert accidental-modifiers))
+(def accidental-modifiers-inverse (set/map-invert accidental-modifiers))
 
 (defn apply-accidental [accidental pitch]
   {:pre [(accidental accidentals)]}

@@ -1,5 +1,5 @@
 (ns melodicorn.level-2-3
-  (:require [melodicorn.util :refer [map-with-accumulator]]))
+  (:require [melodicorn.util :as util]))
 
 ; Level 3
 
@@ -112,7 +112,7 @@
   "Translate from Level 2 to Level 3"
   [input layout-parameters]
   (let [initial-accumulator {:x 0 :y 0 :layout-params layout-parameters}]
-  (apply concat (map-with-accumulator translate-2-3-f initial-accumulator input))))
+  (apply concat (util/map-with-accumulator translate-2-3-f initial-accumulator input))))
 
 
 

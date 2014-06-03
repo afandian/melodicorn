@@ -1,9 +1,9 @@
 (ns melodicorn.demo
   (:require [goog.dom :as dom]
-            [melodicorn.level-0-1 :refer [translate-0-1]]
-            [melodicorn.level-1-2 :refer [translate-1-2]]
-            [melodicorn.level-2-3 :refer [translate-2-3]]
-            [melodicorn.canvas :refer [draw-3-canvas]]))
+            [melodicorn.level-0-1 :as level-0-1]
+            [melodicorn.level-1-2 :as level-1-2]
+            [melodicorn.level-2-3 :as level-2-3]
+            [melodicorn.canvas :as canvas]))
 
 ; Demo drawing with a canvas.
 
@@ -26,11 +26,11 @@
 
 (let [canvas (dom/getElement "the-canvas")
       graphics-context (.getContext canvas "2d")
-      layer-1 (translate-0-1 example-level-0)
-      layer-2 (translate-1-2 layer-1 layout-parameters)
-      layer-3 (translate-2-3 layer-2 layout-parameters)]
+      layer-1 (level-0-1/translate-0-1 example-level-0)
+      layer-2 (level-1-2/translate-1-2 layer-1 layout-parameters)
+      layer-3 (level-2-3/translate-2-3 layer-2 layout-parameters)]
   (.log js/console "Rendering layer-1 to canvas:" (str layer-1))
   (.log js/console "Rendering layer-2 to canvas:" (str layer-2))
   (.log js/console "Rendering layer-3 to canvas:" (str layer-3))  
-  (draw-3-canvas graphics-context layer-3))
+  (canvas/draw-3-canvas graphics-context layer-3))
 
