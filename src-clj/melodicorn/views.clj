@@ -7,7 +7,7 @@
 (defn index-page []
   (html5
     [:head
-      [:title "Hello World"]
+      [:title "Melodicorn"]
     [:body
       [:h1 "Melodicorn"]
       [:canvas {:width 500 :height 500 :id :the-canvas}]]
