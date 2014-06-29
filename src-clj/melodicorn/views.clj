@@ -10,6 +10,6 @@
       [:title "Melodicorn"]
     [:body
       [:h1 "Melodicorn"]
-      [:canvas {:width 500 :height 500 :id :the-canvas}]]
+      [:canvas {:width 1000 :height 500 :id :the-canvas}]]
     (include-js "/js/main.js")]
     ))

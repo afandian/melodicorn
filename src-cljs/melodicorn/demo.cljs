@@ -19,14 +19,25 @@
                       [:note 4 :no-accidental 0 1 4]
                       [:bar-line] 
                       [:note 0 :no-accidental 1 1 4]
-                      [:double-bar-line]])
+                      [:note 4 :no-accidental 0 1 4]
+                      [:note 2 :no-accidental 0 1 4]                      
+                      [:bar-line]
+                      [:clef :bass]
+                      [:note 0 :no-accidental 0 1 4]
+                      [:note 4 :no-accidental -1 1 4]
+                      [:note 2 :no-accidental -1 1 4] 
+                      [:bar-line]
+                      [:note 0 :no-accidental -1 1 4]
+                      [:double-bar-line]
+                      
+                      ])
 ;(def example-level-0 [[:clef :treble] [:key-signature 4 :natural] [:note :d :nil 0 [1 4]] [:note :e :nil 0 [1 4]] [:note :f :nil 0 [1 4]] [:note :g :nil 0 [1 4]] [:bar-line]  [:note :a :nil 0 [1 4]] [:note :b :nil 0 [1 4]] [:note :c :nil 1 [1 4]] [:note :d :nil 1 [1 4]] [:double-bar-line]])
 
 ;(def example-level-0 [[:note :d :nil 0 [1 4]]])
 
 
 (def layout-parameters {
-    :page-width 500
+    :page-width 1000
     :page-height 250
     :margin-left 10
     :margin-right 10
