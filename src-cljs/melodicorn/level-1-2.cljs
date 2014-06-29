@@ -1,4 +1,6 @@
-(ns melodicorn.level-1-2)
+(ns melodicorn.level-1-2
+  (:require [goog.dom :as dom])
+  )
 
 ; Level 2
 
@@ -32,7 +34,7 @@
           margin-bottom :margin-bottom
           trace-margins :trace-margins
           }]
-  ;(.log js/console "TM" trace-margins)
+
   ; TODO validate inputs (width - margins > 0 etc)
   (let [usable-width (- page-width margin-left margin-right)
         usable-height (- page-height margin-top margin-bottom)

@@ -16,3 +16,10 @@
   (into accumulator {k (fun (k accumulator))}))
 
 (def inc-2 #(+ 2 %))
+
+; Get the entity type.
+(def entity-type first)
+
+(def third #(get % 2))
+
+(def fourth #(get % 3))

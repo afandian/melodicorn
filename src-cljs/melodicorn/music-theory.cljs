@@ -6,8 +6,13 @@
 
 (def scale-length (count major-scale))
 
+; TODO modes can be done by cycle and take.
+(def modes {:major major-scale})
+
+(def diatonic-pitch-classes (set (range scale-length)))
+
 ; Natural not an accidental in this scope as it entails context of key-signature.
-(def accidentals #{:double-sharp :sharp :no-accidental :flat :double-flat})
+(def accidentals #{:double-sharp :sharp :no-accidental :natural :flat :double-flat})
 
 (def accidental-modifiers {:double-flat -2
                            :flat -1
@@ -31,6 +36,7 @@
 ; I.e. the chromatic pitches of the white keys, starting with zero.
 (def major-scale-chromatic-degrees (cons 0 (reductions + (cycle major-scale))))
 
+; TODO - will this work with other modes? Perhaps provide as argument when other modes are added.
 (defn key-accidentals
   "Produce accidentals of key signature as an infinite list. Result is a vector of accidentals of [-2 -1 0 1 2] for [double-flat flat natural sharp double-sharp] indexed by position in scale."
   [degree accidental]
@@ -59,4 +65,8 @@
   [degree accidental]
   {:pre [(accidental accidentals)]}
   (take scale-length (drop (- scale-length degree) (key-accidentals degree accidental))))
+
+(def clefs {:treble {:position -2 }
+            :bass   {:position 2  }
+            })
 

@@ -16,6 +16,24 @@ and
 
     $ lein ring server-headless 3000
 
+## Roadmap
+
+### Done
+
+- bar lines
+
+### To do
+
+- key signatures
+- time signatures
+  - initial
+  - change of key signature
+- notes
+- rests
+- once level 0 is more settled, a path representation
+- include paths for all entities
+- validation rules for time signature and beats-in-bar
+- validation exception / disabling
 
 ## Screenshots
 

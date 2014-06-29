@@ -1,4 +1,5 @@
-(ns melodicorn.canvas)
+(ns melodicorn.canvas
+  (:require [goog.dom :as dom]))
 
 ; Canvas drawing from Level 3.
 
@@ -15,8 +16,6 @@
 
 (defn draw-3-stave
   [ctx [x y width]]
-  ;(.log js/console "STAVE"  ctx x (+ y (* note-head-height 0)) 200 2 )
-  ;(.log js/console "CTX" ctx)
   (.fillRect ctx x (+ y (* note-head-height 0)) width 2)
   (.fillRect ctx x (+ y (* note-head-height 1)) width 2)
   (.fillRect ctx x (+ y (* note-head-height 2)) width 2)
@@ -45,9 +44,15 @@
  (.fillRect ctx (+ x (/ note-head-width 4)) y 2 (* 4 note-head-height)
   )))
 
+(defn draw-3-clef
+  [ctx [x y width height]]
+  (aset ctx "strokeStyle" "rgba(50,50,250,1)")
+  (.strokeRect ctx x y width height))
+
 (def draw-3-glyph-dispatch
   {:trace-box draw-3-trace-box
    :stave draw-3-stave
+   :clef draw-3-clef
    :note-head draw-3-note-head
    :up-stem draw-3-up-stem
    :down-stem draw-3-down-stem
@@ -59,7 +64,6 @@
   (let [glyph-type (first glyph)
         fun (get draw-3-glyph-dispatch glyph-type)
         ]
-    (.log js/console "GLYPH" (str glyph-type) (str (rest glyph)))
     (fun context (rest glyph)))
   )
 

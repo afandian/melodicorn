@@ -1,5 +1,8 @@
 (ns melodicorn.level-2-3
-  (:require [melodicorn.util :as util]))
+  (:require [melodicorn.util :as util]
+            [goog.dom :as dom]
+            
+            ))
 
 ; Level 3
 
@@ -24,7 +27,7 @@
 
 (defn render-2-note
   [[x y] {note-head-width :note-head-width}]
-  (.log js/console "render-2-note" note-head-width)
+
   ; TODO more args will be forthcoming.
   (if (< y 0)
     [[:note-head (* x note-head-width) y] [:down-stem (* x note-head-width) y]]
@@ -40,23 +43,23 @@
   [[:double-bar-line (* x note-head-width) y]]
 )
 
+(defn render-2-clef
+  [[x y] {note-head-width :note-head-width}]
+  [[:clef (* x note-head-width) y]])
+
 (def render-2-dispatch
   {:trace-box render-2-trace-box
+   :clef render-2-clef
    :note render-2-note
    :bar-line render-2-bar-line
    :double-bar-line render-2-double-bar-line})
 
 (defn render-2-entity
   [layout-parameters [entity & args]]
-  ;(.log js/console "RENDER ENTITY" (str entity) )
+  
   (let [fun (get render-2-dispatch entity)
         result (fun args layout-parameters)]
-    ;(.log js/console "RENDER ENTITY RESULT" (str result))
     result))
-    
-;(defn handle-2-entity-note
-;  []
-;  )
 
 (defn translate-entity
   "Affine transform of entity's x and y coordinates."
@@ -99,7 +102,7 @@
 
 (defn translate-2-3-f
   [entity accumulator]
-  ;(.log js/console "translate-2-3-f" entity accumulator)
+
   (let [entity-type (:type entity)
         func (get translate-2-3-f-dispatch entity-type)
         result (func entity accumulator)
@@ -115,7 +118,4 @@
   (apply concat (util/map-with-accumulator translate-2-3-f initial-accumulator input))))
 
 
-
-;(.log js/console "IN" example-level-0)
-;(.log js/console "OUT" (str (-> example-level-0 translate-0-1 translate-1-2 translate-2-3)))
 
