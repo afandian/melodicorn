@@ -66,7 +66,8 @@
   {:pre [(accidental accidentals)]}
   (take scale-length (drop (- scale-length degree) (key-accidentals degree accidental))))
 
-(def clefs {:treble {:position -2 }
-            :bass   {:position 2  }
+; Clef defined as vertical position on the stave (relative to middle line) and the white-note pitch relative to middle C.
+(def clefs {:treble {:position -2 :pitch 4}
+            :bass   {:position 2  :pitch -4}
             })
 

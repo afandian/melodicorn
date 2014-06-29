@@ -1,4 +1,5 @@
 .DS_Store
 .lein-env
 .lein-repl-history
+.nrepl-port
 target/

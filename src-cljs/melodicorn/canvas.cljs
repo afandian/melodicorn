@@ -9,6 +9,10 @@
 (def note-head-height 15)
 (def stem-height 50)
 
+(defn position-on-stave [y]
+  "Given a line-coordinate position on the stave relative to the middle line, return y position."
+  (* y note-head-height))
+
 (defn draw-3-trace-box
   [ctx [x y width height]]
   (aset ctx "strokeStyle" "rgba(50,50,250,1)")
@@ -16,42 +20,49 @@
 
 (defn draw-3-stave
   [ctx [x y width]]
-  (.fillRect ctx x (+ y (* note-head-height 0)) width 2)
-  (.fillRect ctx x (+ y (* note-head-height 1)) width 2)
-  (.fillRect ctx x (+ y (* note-head-height 2)) width 2)
-  (.fillRect ctx x (+ y (* note-head-height 3)) width 2)
-  (.fillRect ctx x (+ y (* note-head-height 4)) width 2))
+  (.fillRect ctx x (+ y (position-on-stave -2)) width 2)
+  (.fillRect ctx x (+ y (position-on-stave -1)) width 2)
+  (.fillRect ctx x (+ y (position-on-stave 0)) width 2)
+  (.fillRect ctx x (+ y (position-on-stave 1)) width 2)
+  (.fillRect ctx x (+ y (position-on-stave 2)) width 2))
+
 
 (defn draw-3-note-head
   [ctx [x y]]
-  (.fillRect ctx (- x (/ note-head-width 2)) y note-head-width note-head-height))  
+  (.fillRect ctx (- x (/ note-head-width 2)) (- y (/ note-head-height 2)) note-head-width note-head-height))  
 
 (defn draw-3-up-stem
   [ctx [x y]]
-  (.fillRect ctx (+ x (/ note-head-width 2)) (- (+ y (/ note-head-height 2)) stem-height) 2 stem-height))
+  (.fillRect ctx (+ x (/ note-head-width 2)) (- y stem-height) 2 stem-height))
 
 (defn draw-3-down-stem
   [ctx [x y]]
-  (.fillRect ctx (+ x (/ note-head-width 2)) (+ y (/ note-head-height 2)) 2 stem-height))
+  (.fillRect ctx (+ x (/ note-head-width 2)) y 2 stem-height))
 
 (defn draw-3-bar-line
   [ctx [x y]]
-  (.fillRect ctx x y 2 (* 4 note-head-height)))
+  (.fillRect ctx x (- y (* 2 note-head-height) ) 2 (* 4 note-head-height)))
 
 (defn draw-3-double-bar-line
   [ctx [x y]]
-  (.fillRect ctx x y 2 (* 4 note-head-height)
- (.fillRect ctx (+ x (/ note-head-width 4)) y 2 (* 4 note-head-height)
+  (.fillRect ctx x (- y (* 2 note-head-height)) 2 (* 4 note-head-height)
+  (.fillRect ctx (+ x (/ note-head-width 4)) (- y (* 2 note-head-height)) 2 (* 4 note-head-height)
   )))
 
 (defn draw-3-clef
   [ctx [x y width height]]
-  (aset ctx "strokeStyle" "rgba(50,50,250,1)")
+  (aset ctx "strokeStyle" "rgba(0,0,0,1)")
+  (.strokeRect ctx (- x (/ note-head-width 2)) (- y (/ note-head-height 2)) note-head-width note-head-height))  
+
+(defn draw-3-key-signature
+  [ctx [x y width height]]
+  (aset ctx "strokeStyle" "rgba(0,0,0,1)")
   (.strokeRect ctx x y width height))
 
 (def draw-3-glyph-dispatch
   {:trace-box draw-3-trace-box
    :stave draw-3-stave
+   :key-signature draw-3-key-signature
    :clef draw-3-clef
    :note-head draw-3-note-head
    :up-stem draw-3-up-stem

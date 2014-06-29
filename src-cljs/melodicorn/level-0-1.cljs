@@ -42,9 +42,7 @@
 ; Entity is [entity-type x y args]
 
 (defn handle-0-key-signature
-  [[etype pitch-class accidental mode] accumulator]
-  ; TODO throwing away mode for now.
-  
+  [[_ pitch-class accidental mode] accumulator]  
   (let [key-signature (theory/key-signature pitch-class accidental)
         with-index (map vector key-signature (range))
         
@@ -52,23 +50,26 @@
    )
   
   ; TODO - pitch, accidentals, everything really.
-  [[:note (:x accumulator) 0]
+  ; TODO - actually emit key signature
+  [[:key-signature (:x accumulator) 0]
    (util/acc-apply accumulator :x util/inc-2)])
 
 (defn handle-0-clef
-  [[etype clef-type] accumulator]
-  
-  ; TODO - everything
-  [[:clef (:x accumulator) 0]
-   (util/acc-apply accumulator :x util/inc-2)])
-
-
+  [[_ clef-type] accumulator]
+  (let [{position :position pitch :pitch} (theory/clefs clef-type)
+        ; Offset of middle-c relative to middle line of stave.
+        middle-c-offset (+ (* pitch -1) position)
+        ]
+    [[:clef (:x accumulator) position]
+     (assoc accumulator :x (util/inc-2 (:x accumulator)) :middle-c-offset middle-c-offset :clef-pitch pitch)]))
 
 (defn handle-0-note
-  [[pitch-class accidentals octave duration-numerator duration-denominator] accumulator]
-  ; TODO - pitch, accidentals, everything really.
-  [[:note (:x accumulator) 0]
-   (util/acc-apply accumulator :x util/inc-2)])
+  [[_ pitch-class accidentals octave duration-numerator duration-denominator] accumulator]
+  (let [; Which white note.
+        absolute-diatonic-position (+ (* octave 7) pitch-class)
+        position-on-stave (+ (:middle-c-offset accumulator) absolute-diatonic-position)]
+  [[:note (:x accumulator) position-on-stave]
+   (util/acc-apply accumulator :x util/inc-2)]))
 
 (defn handle-0-bar
   [_ accumulator]
@@ -95,6 +96,7 @@
         result (when dispatch-f (dispatch-f element accumulator))]
     ; If the key didn't exist in the dispatch table, result will be nil.
     ; This shouldn't happen, but here's where that's handled.
+    ;(.log js/console (str "acc: " accumulator " el: " element " res: " result))
     (if result
       result
       [nil accumulator])))

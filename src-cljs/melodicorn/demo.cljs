@@ -8,16 +8,16 @@
 
 ; Demo drawing with a canvas.
 
-(def example-level-0 [[:clef :treble]
-                      [:key-signature 1 :no-accidental :major]
-                      [:note 0 :no-accidental 0 1 4]
-                      [:note 1 :no-accidental 0 1 4] 
-                      [:note 2 :no-accidental 0 1 4]
-                      [:note 3 :no-accidental 0 1 4]
+(def example-level-0 [[:clef :bass]
+                      [:note 0 :no-accidental -1 1 4]
+                      [:note 2 :no-accidental -1 1 4] 
+                      [:note 4 :no-accidental -1 1 4]
                       [:bar-line] 
+                      [:clef :treble]
+                      [:note 0 :no-accidental 0 1 4]
+                      [:note 2 :no-accidental 0 1 4]
                       [:note 4 :no-accidental 0 1 4]
-                      [:note 5 :no-accidental 0 1 4]
-                      [:note 6 :no-accidental 1 1 4]
+                      [:bar-line] 
                       [:note 0 :no-accidental 1 1 4]
                       [:double-bar-line]])
 ;(def example-level-0 [[:clef :treble] [:key-signature 4 :natural] [:note :d :nil 0 [1 4]] [:note :e :nil 0 [1 4]] [:note :f :nil 0 [1 4]] [:note :g :nil 0 [1 4]] [:bar-line]  [:note :a :nil 0 [1 4]] [:note :b :nil 0 [1 4]] [:note :c :nil 1 [1 4]] [:note :d :nil 1 [1 4]] [:double-bar-line]])
@@ -45,7 +45,7 @@
           layer-1 (level-0-1/translate-0-1 example-level-0)
           layer-2 (level-1-2/translate-1-2 layer-1 layout-parameters)
           layer-3 (level-2-3/translate-2-3 layer-2 layout-parameters)]
-          (.log js/console "Rendering layer-1 to canvas:" (str layer-1))
-          (.log js/console "Rendering layer-2 to canvas:" (str layer-2))
-          (.log js/console "Rendering layer-3 to canvas:" (str layer-3))  
+          (.log js/console "Render 0 to 1:" (str layer-1))
+          (.log js/console "Render 1 to 2:" (str layer-2))
+          (.log js/console "Render 2 to 3:" (str layer-3))  
           (canvas/draw-3-canvas graphics-context layer-3))))
