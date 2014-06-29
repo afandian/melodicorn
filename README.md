@@ -39,8 +39,8 @@ and
 
 ### First commit
 
-![Screenshot 1](https://raw.githubusercontent.com/afandian/melodicorn/master/docs/screenshots/26-05-2014/first.png)
+![Screenshot 1](https://raw.githubusercontent.com/afandian/melodicorn/develop/docs/screenshots/26-05-2014/first.png)
 
 ### With clefs
 
-![Screenshot 2](https://raw.githubusercontent.com/afandian/melodicorn/master/docs/screenshots/29-06-2014/second.png)
+![Screenshot 2](https://raw.githubusercontent.com/afandian/melodicorn/develop/docs/screenshots/29-06-2014/second.png)
