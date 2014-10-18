@@ -44,3 +44,7 @@ and
 ### With clefs
 
 ![Screenshot 2](https://raw.githubusercontent.com/afandian/melodicorn/develop/docs/screenshots/29-06-2014/second.png)
+
+### Nicer noteheads
+
+![Screenshot 3](https://raw.githubusercontent.com/afandian/melodicorn/develop/docs/screenshots/18-10-2014/first.png)
