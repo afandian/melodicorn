@@ -9,7 +9,6 @@
     [:head
       [:title "Melodicorn"]
     [:body
-      [:h1 "Melodicorn"]
       [:canvas {:width 1000 :height 500 :id :the-canvas}]]
     (include-js "/js/main.js")]
     ))

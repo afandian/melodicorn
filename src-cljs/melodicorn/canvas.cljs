@@ -5,9 +5,37 @@
 
 ; TODO move these (and access) into params
 ; TODO scale!
-(def note-head-width 20)
+(def note-head-width 25)
 (def note-head-height 15)
 (def stem-height 50)
+
+; thanks to http://stackoverflow.com/questions/2172798/how-to-draw-an-oval-in-html5-canvas
+(defn drawEllipse [ctx fill? x y w h]
+  (let [kappa  .5522848
+        tx x ; Transform the context so new x and y will be zero.
+        ty y
+        ox (* (/ w 2) kappa) ; control point offset horizontal
+        oy (* (/ h 2) kappa) ; control point offset vertical
+        xe (+ tx w)           ; x-end
+        ye (+ ty h)           ; y-end
+        xm (+ tx (/ w 2))       ; x-middle
+        ym (+ ty (/ h 2))       ; y-middle
+] 
+  (.beginPath ctx)
+  (.moveTo ctx tx ym)
+  (.bezierCurveTo ctx tx (- ym oy) (- xm ox) ty xm ty)
+  (.bezierCurveTo ctx (+ xm ox) ty xe (- ym oy) xe ym)
+  (.bezierCurveTo ctx xe (+ ym oy) (+ xm ox) ye xm ye)  
+  (.bezierCurveTo ctx (- xm ox) ye tx (+ ym oy) tx ym)  
+  (when fill? (.fill ctx))
+  (.stroke ctx)))
+
+(defn drawEllipseByCenter [ctx fill? cx cy w h] 
+  (.save ctx)
+  (.translate ctx cx cy)
+  (.transform ctx 1 (Math/tan (* -10 (/ Math/PI 180))) 0 1 0 0)  
+  (drawEllipse ctx true (- 0 (/ w 2.0)) (- 0 (/ h 2.0)) w h)
+  (.restore ctx))
 
 (defn position-on-stave [y]
   "Given a line-coordinate position on the stave relative to the middle line, return y position."
@@ -29,15 +57,15 @@
 
 (defn draw-3-note-head
   [ctx [x y]]
-  (.fillRect ctx (- x (/ note-head-width 2)) (- y (/ note-head-height 2)) note-head-width note-head-height))  
+  (drawEllipseByCenter ctx true x y note-head-width note-head-height))  
 
 (defn draw-3-up-stem
   [ctx [x y]]
-  (.fillRect ctx (+ x (/ note-head-width 2)) (- y stem-height) 2 stem-height))
+  (.fillRect ctx (- (+ x (/ note-head-width 2)) 2) (- y stem-height) 2 stem-height)))
 
 (defn draw-3-down-stem
   [ctx [x y]]
-  (.fillRect ctx (+ x (/ note-head-width 2)) y 2 stem-height))
+  (.fillRect ctx (+ (- x (/ note-head-width 2)) 0) y 2 stem-height))
 
 (defn draw-3-bar-line
   [ctx [x y]]
@@ -46,8 +74,7 @@
 (defn draw-3-double-bar-line
   [ctx [x y]]
   (.fillRect ctx x (- y (* 2 note-head-height)) 2 (* 4 note-head-height)
-  (.fillRect ctx (+ x (/ note-head-width 4)) (- y (* 2 note-head-height)) 2 (* 4 note-head-height)
-  )))
+  (.fillRect ctx (+ x (/ note-head-width 4)) (- y (* 2 note-head-height)) 2 (* 4 note-head-height))))
 
 (defn draw-3-clef
   [ctx [x y width height]]
