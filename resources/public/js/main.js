@@ -28647,12 +28647,8 @@ melodicorn.canvas.drawEllipse = function drawEllipse(ctx, fill_QMARK_, x, y, w, 
   return ctx.stroke();
 };
 melodicorn.canvas.drawEllipseByCenter = function drawEllipseByCenter(ctx, fill_QMARK_, cx, cy, w, h) {
-  ctx["fillStyle"] = "red";
-  ctx["fillStyle"] = "black";
   ctx.save();
   ctx.translate(cx, cy);
-  ctx["fillStyle"] = "green";
-  ctx["fillStyle"] = "black";
   ctx.transform(1, Math.tan.call(null, -10 * (Math.PI / 180)), 0, 1, 0, 0);
   melodicorn.canvas.drawEllipse.call(null, ctx, true, 0 - w / 2, 0 - h / 2, w, h);
   return ctx.restore();
@@ -28660,127 +28656,130 @@ melodicorn.canvas.drawEllipseByCenter = function drawEllipseByCenter(ctx, fill_Q
 melodicorn.canvas.position_on_stave = function position_on_stave(y) {
   return y * melodicorn.canvas.note_head_height;
 };
-melodicorn.canvas.draw_3_trace_box = function draw_3_trace_box(ctx, p__25610) {
-  var vec__25612 = p__25610;
-  var x = cljs.core.nth.call(null, vec__25612, 0, null);
-  var y = cljs.core.nth.call(null, vec__25612, 1, null);
-  var width = cljs.core.nth.call(null, vec__25612, 2, null);
-  var height = cljs.core.nth.call(null, vec__25612, 3, null);
+melodicorn.canvas.draw_3_trace_box = function draw_3_trace_box(ctx, p__11918) {
+  var vec__11920 = p__11918;
+  var x = cljs.core.nth.call(null, vec__11920, 0, null);
+  var y = cljs.core.nth.call(null, vec__11920, 1, null);
+  var width = cljs.core.nth.call(null, vec__11920, 2, null);
+  var height = cljs.core.nth.call(null, vec__11920, 3, null);
   ctx["strokeStyle"] = "rgba(50,50,250,1)";
   return ctx.strokeRect(x, y, width, height);
 };
-melodicorn.canvas.draw_3_stave = function draw_3_stave(ctx, p__25613) {
-  var vec__25615 = p__25613;
-  var x = cljs.core.nth.call(null, vec__25615, 0, null);
-  var y = cljs.core.nth.call(null, vec__25615, 1, null);
-  var width = cljs.core.nth.call(null, vec__25615, 2, null);
+melodicorn.canvas.draw_3_stave = function draw_3_stave(ctx, p__11921) {
+  var vec__11923 = p__11921;
+  var x = cljs.core.nth.call(null, vec__11923, 0, null);
+  var y = cljs.core.nth.call(null, vec__11923, 1, null);
+  var width = cljs.core.nth.call(null, vec__11923, 2, null);
   ctx.fillRect(x, y + melodicorn.canvas.position_on_stave.call(null, -2), width, 2);
   ctx.fillRect(x, y + melodicorn.canvas.position_on_stave.call(null, -1), width, 2);
   ctx.fillRect(x, y + melodicorn.canvas.position_on_stave.call(null, 0), width, 2);
   ctx.fillRect(x, y + melodicorn.canvas.position_on_stave.call(null, 1), width, 2);
   return ctx.fillRect(x, y + melodicorn.canvas.position_on_stave.call(null, 2), width, 2);
 };
-melodicorn.canvas.draw_3_note_head = function draw_3_note_head(ctx, p__25616) {
-  var vec__25618 = p__25616;
-  var x = cljs.core.nth.call(null, vec__25618, 0, null);
-  var y = cljs.core.nth.call(null, vec__25618, 1, null);
+melodicorn.canvas.draw_3_note_head = function draw_3_note_head(ctx, p__11924) {
+  var vec__11926 = p__11924;
+  var x = cljs.core.nth.call(null, vec__11926, 0, null);
+  var y = cljs.core.nth.call(null, vec__11926, 1, null);
   return melodicorn.canvas.drawEllipseByCenter.call(null, ctx, true, x, y, melodicorn.canvas.note_head_width, melodicorn.canvas.note_head_height);
 };
-melodicorn.canvas.draw_3_up_stem = function draw_3_up_stem(ctx, p__25619) {
-  var vec__25621 = p__25619;
-  var x = cljs.core.nth.call(null, vec__25621, 0, null);
-  var y = cljs.core.nth.call(null, vec__25621, 1, null);
-  var nudge = melodicorn.canvas.note_head_height / 4;
-  var nudge__$1 = 0;
+melodicorn.canvas.draw_3_ledger_line = function draw_3_ledger_line(ctx, p__11927) {
+  var vec__11929 = p__11927;
+  var x = cljs.core.nth.call(null, vec__11929, 0, null);
+  var y = cljs.core.nth.call(null, vec__11929, 1, null);
+  return ctx.fillRect(x - melodicorn.canvas.note_head_width * .75, y, melodicorn.canvas.note_head_width * 1.5, 2);
+};
+melodicorn.canvas.draw_3_up_stem = function draw_3_up_stem(ctx, p__11930) {
+  var vec__11932 = p__11930;
+  var x = cljs.core.nth.call(null, vec__11932, 0, null);
+  var y = cljs.core.nth.call(null, vec__11932, 1, null);
   return ctx.fillRect(x + melodicorn.canvas.note_head_width / 2 - 2, y - melodicorn.canvas.stem_height, 2, melodicorn.canvas.stem_height);
 };
-melodicorn.canvas.draw_3_down_stem = function draw_3_down_stem(ctx, p__25622) {
-  var vec__25624 = p__25622;
-  var x = cljs.core.nth.call(null, vec__25624, 0, null);
-  var y = cljs.core.nth.call(null, vec__25624, 1, null);
-  var nudge = melodicorn.canvas.note_head_height / 4;
-  var nudge__$1 = 0;
-  return ctx.fillRect(x - melodicorn.canvas.note_head_width / 2 + 0, y - nudge__$1, 2, melodicorn.canvas.stem_height);
+melodicorn.canvas.draw_3_down_stem = function draw_3_down_stem(ctx, p__11933) {
+  var vec__11935 = p__11933;
+  var x = cljs.core.nth.call(null, vec__11935, 0, null);
+  var y = cljs.core.nth.call(null, vec__11935, 1, null);
+  return ctx.fillRect(x - melodicorn.canvas.note_head_width / 2 + 0, y, 2, melodicorn.canvas.stem_height);
 };
-melodicorn.canvas.draw_3_bar_line = function draw_3_bar_line(ctx, p__25625) {
-  var vec__25627 = p__25625;
-  var x = cljs.core.nth.call(null, vec__25627, 0, null);
-  var y = cljs.core.nth.call(null, vec__25627, 1, null);
+melodicorn.canvas.draw_3_bar_line = function draw_3_bar_line(ctx, p__11936) {
+  var vec__11938 = p__11936;
+  var x = cljs.core.nth.call(null, vec__11938, 0, null);
+  var y = cljs.core.nth.call(null, vec__11938, 1, null);
   return ctx.fillRect(x, y - 2 * melodicorn.canvas.note_head_height, 2, 4 * melodicorn.canvas.note_head_height);
 };
-melodicorn.canvas.draw_3_double_bar_line = function draw_3_double_bar_line(ctx, p__25628) {
-  var vec__25630 = p__25628;
-  var x = cljs.core.nth.call(null, vec__25630, 0, null);
-  var y = cljs.core.nth.call(null, vec__25630, 1, null);
+melodicorn.canvas.draw_3_double_bar_line = function draw_3_double_bar_line(ctx, p__11939) {
+  var vec__11941 = p__11939;
+  var x = cljs.core.nth.call(null, vec__11941, 0, null);
+  var y = cljs.core.nth.call(null, vec__11941, 1, null);
   return ctx.fillRect(x, y - 2 * melodicorn.canvas.note_head_height, 2, 4 * melodicorn.canvas.note_head_height, ctx.fillRect(x + melodicorn.canvas.note_head_width / 4, y - 2 * melodicorn.canvas.note_head_height, 2, 4 * melodicorn.canvas.note_head_height));
 };
-melodicorn.canvas.draw_3_clef = function draw_3_clef(ctx, p__25631) {
-  var vec__25633 = p__25631;
-  var x = cljs.core.nth.call(null, vec__25633, 0, null);
-  var y = cljs.core.nth.call(null, vec__25633, 1, null);
-  var width = cljs.core.nth.call(null, vec__25633, 2, null);
-  var height = cljs.core.nth.call(null, vec__25633, 3, null);
+melodicorn.canvas.draw_3_clef = function draw_3_clef(ctx, p__11942) {
+  var vec__11944 = p__11942;
+  var x = cljs.core.nth.call(null, vec__11944, 0, null);
+  var y = cljs.core.nth.call(null, vec__11944, 1, null);
+  var width = cljs.core.nth.call(null, vec__11944, 2, null);
+  var height = cljs.core.nth.call(null, vec__11944, 3, null);
   ctx["strokeStyle"] = "rgba(0,0,0,1)";
   return ctx.strokeRect(x - melodicorn.canvas.note_head_width / 2, y - melodicorn.canvas.note_head_height / 2, melodicorn.canvas.note_head_width, melodicorn.canvas.note_head_height);
 };
-melodicorn.canvas.draw_3_key_signature = function draw_3_key_signature(ctx, p__25634) {
-  var vec__25636 = p__25634;
-  var x = cljs.core.nth.call(null, vec__25636, 0, null);
-  var y = cljs.core.nth.call(null, vec__25636, 1, null);
-  var width = cljs.core.nth.call(null, vec__25636, 2, null);
-  var height = cljs.core.nth.call(null, vec__25636, 3, null);
+melodicorn.canvas.draw_3_key_signature = function draw_3_key_signature(ctx, p__11945) {
+  var vec__11947 = p__11945;
+  var x = cljs.core.nth.call(null, vec__11947, 0, null);
+  var y = cljs.core.nth.call(null, vec__11947, 1, null);
+  var width = cljs.core.nth.call(null, vec__11947, 2, null);
+  var height = cljs.core.nth.call(null, vec__11947, 3, null);
   ctx["strokeStyle"] = "rgba(0,0,0,1)";
   return ctx.strokeRect(x, y, width, height);
 };
-melodicorn.canvas.draw_3_glyph_dispatch = cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "key-signature", "key-signature", 1212039621), new cljs.core.Keyword(null, "bar-line", "bar-line", -1088510362), new cljs.core.Keyword(null, "down-stem", "down-stem", 1894298151), new cljs.core.Keyword(null, "double-bar-line", "double-bar-line", -1791229174), new cljs.core.Keyword(null, "clef", "clef", -258834324), new cljs.core.Keyword(null, "trace-box", "trace-box", -1995022355), new cljs.core.Keyword(null, 
-"up-stem", "up-stem", 1942726865), new cljs.core.Keyword(null, "note-head", "note-head", 1063760698), new cljs.core.Keyword(null, "stave", "stave", -1205874017)], [melodicorn.canvas.draw_3_key_signature, melodicorn.canvas.draw_3_bar_line, melodicorn.canvas.draw_3_down_stem, melodicorn.canvas.draw_3_double_bar_line, melodicorn.canvas.draw_3_clef, melodicorn.canvas.draw_3_trace_box, melodicorn.canvas.draw_3_up_stem, melodicorn.canvas.draw_3_note_head, melodicorn.canvas.draw_3_stave]);
+melodicorn.canvas.draw_3_glyph_dispatch = cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "ledger-line", "ledger-line", 957708195), new cljs.core.Keyword(null, "key-signature", "key-signature", 1212039621), new cljs.core.Keyword(null, "bar-line", "bar-line", -1088510362), new cljs.core.Keyword(null, "down-stem", "down-stem", 1894298151), new cljs.core.Keyword(null, "double-bar-line", "double-bar-line", -1791229174), new cljs.core.Keyword(null, "clef", "clef", -258834324), new cljs.core.Keyword(null, 
+"trace-box", "trace-box", -1995022355), new cljs.core.Keyword(null, "up-stem", "up-stem", 1942726865), new cljs.core.Keyword(null, "note-head", "note-head", 1063760698), new cljs.core.Keyword(null, "stave", "stave", -1205874017)], [melodicorn.canvas.draw_3_ledger_line, melodicorn.canvas.draw_3_key_signature, melodicorn.canvas.draw_3_bar_line, melodicorn.canvas.draw_3_down_stem, melodicorn.canvas.draw_3_double_bar_line, melodicorn.canvas.draw_3_clef, melodicorn.canvas.draw_3_trace_box, melodicorn.canvas.draw_3_up_stem, 
+melodicorn.canvas.draw_3_note_head, melodicorn.canvas.draw_3_stave]);
 melodicorn.canvas.draw_3_glyph = function draw_3_glyph(context, glyph) {
   var glyph_type = cljs.core.first.call(null, glyph);
   var fun = cljs.core.get.call(null, melodicorn.canvas.draw_3_glyph_dispatch, glyph_type);
   return fun.call(null, context, cljs.core.rest.call(null, glyph));
 };
 melodicorn.canvas.draw_3_canvas = function draw_3_canvas(context, layer_3_input) {
-  var seq__25641 = cljs.core.seq.call(null, cljs.core.map.call(null, cljs.core.partial.call(null, melodicorn.canvas.draw_3_glyph, context), layer_3_input));
-  var chunk__25642 = null;
-  var count__25643 = 0;
-  var i__25644 = 0;
+  var seq__11952 = cljs.core.seq.call(null, cljs.core.map.call(null, cljs.core.partial.call(null, melodicorn.canvas.draw_3_glyph, context), layer_3_input));
+  var chunk__11953 = null;
+  var count__11954 = 0;
+  var i__11955 = 0;
   while (true) {
-    if (i__25644 < count__25643) {
-      var _ = cljs.core._nth.call(null, chunk__25642, i__25644);
-      var G__25645 = seq__25641;
-      var G__25646 = chunk__25642;
-      var G__25647 = count__25643;
-      var G__25648 = i__25644 + 1;
-      seq__25641 = G__25645;
-      chunk__25642 = G__25646;
-      count__25643 = G__25647;
-      i__25644 = G__25648;
+    if (i__11955 < count__11954) {
+      var _ = cljs.core._nth.call(null, chunk__11953, i__11955);
+      var G__11956 = seq__11952;
+      var G__11957 = chunk__11953;
+      var G__11958 = count__11954;
+      var G__11959 = i__11955 + 1;
+      seq__11952 = G__11956;
+      chunk__11953 = G__11957;
+      count__11954 = G__11958;
+      i__11955 = G__11959;
       continue;
     } else {
-      var temp__4126__auto__ = cljs.core.seq.call(null, seq__25641);
+      var temp__4126__auto__ = cljs.core.seq.call(null, seq__11952);
       if (temp__4126__auto__) {
-        var seq__25641__$1 = temp__4126__auto__;
-        if (cljs.core.chunked_seq_QMARK_.call(null, seq__25641__$1)) {
-          var c__4410__auto__ = cljs.core.chunk_first.call(null, seq__25641__$1);
-          var G__25649 = cljs.core.chunk_rest.call(null, seq__25641__$1);
-          var G__25650 = c__4410__auto__;
-          var G__25651 = cljs.core.count.call(null, c__4410__auto__);
-          var G__25652 = 0;
-          seq__25641 = G__25649;
-          chunk__25642 = G__25650;
-          count__25643 = G__25651;
-          i__25644 = G__25652;
+        var seq__11952__$1 = temp__4126__auto__;
+        if (cljs.core.chunked_seq_QMARK_.call(null, seq__11952__$1)) {
+          var c__4410__auto__ = cljs.core.chunk_first.call(null, seq__11952__$1);
+          var G__11960 = cljs.core.chunk_rest.call(null, seq__11952__$1);
+          var G__11961 = c__4410__auto__;
+          var G__11962 = cljs.core.count.call(null, c__4410__auto__);
+          var G__11963 = 0;
+          seq__11952 = G__11960;
+          chunk__11953 = G__11961;
+          count__11954 = G__11962;
+          i__11955 = G__11963;
           continue;
         } else {
-          var _ = cljs.core.first.call(null, seq__25641__$1);
-          var G__25653 = cljs.core.next.call(null, seq__25641__$1);
-          var G__25654 = null;
-          var G__25655 = 0;
-          var G__25656 = 0;
-          seq__25641 = G__25653;
-          chunk__25642 = G__25654;
-          count__25643 = G__25655;
-          i__25644 = G__25656;
+          var _ = cljs.core.first.call(null, seq__11952__$1);
+          var G__11964 = cljs.core.next.call(null, seq__11952__$1);
+          var G__11965 = null;
+          var G__11966 = 0;
+          var G__11967 = 0;
+          seq__11952 = G__11964;
+          chunk__11953 = G__11965;
+          count__11954 = G__11966;
+          i__11955 = G__11967;
           continue;
         }
       } else {
@@ -29455,82 +29454,104 @@ goog.require("melodicorn.util");
 melodicorn.level_2_3.position_from_stave_coordinate = function position_from_stave_coordinate(y, note_head_height) {
   return y * -1 * (note_head_height / 2) - 0;
 };
-melodicorn.level_2_3.render_2_trace_box = function render_2_trace_box(p__5185, layout_parameters) {
-  var vec__5187 = p__5185;
-  var x = cljs.core.nth.call(null, vec__5187, 0, null);
-  var y = cljs.core.nth.call(null, vec__5187, 1, null);
-  var width = cljs.core.nth.call(null, vec__5187, 2, null);
-  var height = cljs.core.nth.call(null, vec__5187, 3, null);
+melodicorn.level_2_3.render_2_trace_box = function render_2_trace_box(p__11282, layout_parameters) {
+  var vec__11284 = p__11282;
+  var x = cljs.core.nth.call(null, vec__11284, 0, null);
+  var y = cljs.core.nth.call(null, vec__11284, 1, null);
+  var width = cljs.core.nth.call(null, vec__11284, 2, null);
+  var height = cljs.core.nth.call(null, vec__11284, 3, null);
   return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "trace-box", "trace-box", -1995022355), x, y, width, height], null)], null);
 };
-melodicorn.level_2_3.render_2_note = function render_2_note(p__5188, p__5189) {
-  var vec__5192 = p__5188;
-  var x = cljs.core.nth.call(null, vec__5192, 0, null);
-  var y = cljs.core.nth.call(null, vec__5192, 1, null);
-  var map__5193 = p__5189;
-  var map__5193__$1 = cljs.core.seq_QMARK_.call(null, map__5193) ? cljs.core.apply.call(null, cljs.core.hash_map, map__5193) : map__5193;
-  var note_head_width = cljs.core.get.call(null, map__5193__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
-  var note_head_height = cljs.core.get.call(null, map__5193__$1, new cljs.core.Keyword(null, "note-head-height", "note-head-height", -1994614138));
+melodicorn.level_2_3.render_2_note = function render_2_note(p__11285, p__11286) {
+  var vec__11289 = p__11285;
+  var x = cljs.core.nth.call(null, vec__11289, 0, null);
+  var y = cljs.core.nth.call(null, vec__11289, 1, null);
+  var map__11290 = p__11286;
+  var map__11290__$1 = cljs.core.seq_QMARK_.call(null, map__11290) ? cljs.core.apply.call(null, cljs.core.hash_map, map__11290) : map__11290;
+  var note_head_width = cljs.core.get.call(null, map__11290__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
+  var note_head_height = cljs.core.get.call(null, map__11290__$1, new cljs.core.Keyword(null, "note-head-height", "note-head-height", -1994614138));
   var head_y_pos = melodicorn.level_2_3.position_from_stave_coordinate.call(null, y, note_head_height);
-  if (y > 0) {
-    return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note-head", "note-head", 1063760698), x * note_head_width, head_y_pos], null), new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "down-stem", "down-stem", 1894298151), x * note_head_width, head_y_pos], null)], null);
-  } else {
-    return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note-head", "note-head", 1063760698), x * note_head_width, head_y_pos], null), new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "up-stem", "up-stem", 1942726865), x * note_head_width, head_y_pos], null)], null);
-  }
+  var note_head = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note-head", "note-head", 1063760698), x * note_head_width, head_y_pos], null);
+  var position = cljs.core._EQ_.call(null, y, 0) ? new cljs.core.Keyword(null, "centre", "centre", -948091970) : y > 0 ? new cljs.core.Keyword(null, "above", "above", -1286866470) : new cljs.core.Keyword(null, "below", "below", -926774883);
+  var stem = cljs.core.truth_((new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "below", "below", -926774883), null, new cljs.core.Keyword(null, "centre", "centre", -948091970), null], null), null)).call(null, position)) ? new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "up-stem", "up-stem", 1942726865), x * note_head_width, head_y_pos], null) : new cljs.core.PersistentVector(null, 
+  3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "down-stem", "down-stem", 1894298151), x * note_head_width, head_y_pos], null);
+  var ledger_lines_above = function() {
+    var distance_above_top_line = y - 4;
+    if (distance_above_top_line > 0) {
+      return cljs.core.map.call(null, function(distance_above_top_line, head_y_pos, note_head, position, stem, vec__11289, x, y, map__11290, map__11290__$1, note_head_width, note_head_height) {
+        return function(y_pos) {
+          return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "ledger-line", "ledger-line", 957708195), x * note_head_width, melodicorn.level_2_3.position_from_stave_coordinate.call(null, y_pos, note_head_height)], null);
+        };
+      }(distance_above_top_line, head_y_pos, note_head, position, stem, vec__11289, x, y, map__11290, map__11290__$1, note_head_width, note_head_height), cljs.core.range.call(null, distance_above_top_line));
+    } else {
+      return null;
+    }
+  }();
+  var ledger_lines_below = cljs.core.map.call(null, function(head_y_pos, note_head, position, stem, ledger_lines_above, vec__11289, x, y, map__11290, map__11290__$1, note_head_width, note_head_height) {
+    return function(y_pos) {
+      return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "ledger-line", "ledger-line", 957708195), x * note_head_width, melodicorn.level_2_3.position_from_stave_coordinate.call(null, y_pos, note_head_height)], null);
+    };
+  }(head_y_pos, note_head, position, stem, ledger_lines_above, vec__11289, x, y, map__11290, map__11290__$1, note_head_width, note_head_height), cljs.core.range.call(null, -6, y - 1, -2));
+  var ledger_lines_above__$1 = cljs.core.map.call(null, function(head_y_pos, note_head, position, stem, ledger_lines_above, ledger_lines_below, vec__11289, x, y, map__11290, map__11290__$1, note_head_width, note_head_height) {
+    return function(y_pos) {
+      return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "ledger-line", "ledger-line", 957708195), x * note_head_width, melodicorn.level_2_3.position_from_stave_coordinate.call(null, y_pos, note_head_height)], null);
+    };
+  }(head_y_pos, note_head, position, stem, ledger_lines_above, ledger_lines_below, vec__11289, x, y, map__11290, map__11290__$1, note_head_width, note_head_height), cljs.core.range.call(null, 6, y + 1, 2));
+  return cljs.core.concat.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [note_head, stem], null), ledger_lines_above__$1, ledger_lines_below);
 };
-melodicorn.level_2_3.render_2_bar_line = function render_2_bar_line(p__5194, p__5195) {
-  var vec__5198 = p__5194;
-  var x = cljs.core.nth.call(null, vec__5198, 0, null);
-  var y = cljs.core.nth.call(null, vec__5198, 1, null);
-  var map__5199 = p__5195;
-  var map__5199__$1 = cljs.core.seq_QMARK_.call(null, map__5199) ? cljs.core.apply.call(null, cljs.core.hash_map, map__5199) : map__5199;
-  var note_head_width = cljs.core.get.call(null, map__5199__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
+melodicorn.level_2_3.render_2_bar_line = function render_2_bar_line(p__11291, p__11292) {
+  var vec__11295 = p__11291;
+  var x = cljs.core.nth.call(null, vec__11295, 0, null);
+  var y = cljs.core.nth.call(null, vec__11295, 1, null);
+  var map__11296 = p__11292;
+  var map__11296__$1 = cljs.core.seq_QMARK_.call(null, map__11296) ? cljs.core.apply.call(null, cljs.core.hash_map, map__11296) : map__11296;
+  var note_head_width = cljs.core.get.call(null, map__11296__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
   return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "bar-line", "bar-line", -1088510362), x * note_head_width, y], null)], null);
 };
-melodicorn.level_2_3.render_2_double_bar_line = function render_2_double_bar_line(p__5200, p__5201) {
-  var vec__5204 = p__5200;
-  var x = cljs.core.nth.call(null, vec__5204, 0, null);
-  var y = cljs.core.nth.call(null, vec__5204, 1, null);
-  var map__5205 = p__5201;
-  var map__5205__$1 = cljs.core.seq_QMARK_.call(null, map__5205) ? cljs.core.apply.call(null, cljs.core.hash_map, map__5205) : map__5205;
-  var note_head_width = cljs.core.get.call(null, map__5205__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
+melodicorn.level_2_3.render_2_double_bar_line = function render_2_double_bar_line(p__11297, p__11298) {
+  var vec__11301 = p__11297;
+  var x = cljs.core.nth.call(null, vec__11301, 0, null);
+  var y = cljs.core.nth.call(null, vec__11301, 1, null);
+  var map__11302 = p__11298;
+  var map__11302__$1 = cljs.core.seq_QMARK_.call(null, map__11302) ? cljs.core.apply.call(null, cljs.core.hash_map, map__11302) : map__11302;
+  var note_head_width = cljs.core.get.call(null, map__11302__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
   return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "double-bar-line", "double-bar-line", -1791229174), x * note_head_width, y], null)], null);
 };
-melodicorn.level_2_3.render_2_clef = function render_2_clef(p__5206, p__5207) {
-  var vec__5210 = p__5206;
-  var x = cljs.core.nth.call(null, vec__5210, 0, null);
-  var y = cljs.core.nth.call(null, vec__5210, 1, null);
-  var map__5211 = p__5207;
-  var map__5211__$1 = cljs.core.seq_QMARK_.call(null, map__5211) ? cljs.core.apply.call(null, cljs.core.hash_map, map__5211) : map__5211;
-  var note_head_width = cljs.core.get.call(null, map__5211__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
-  var note_head_height = cljs.core.get.call(null, map__5211__$1, new cljs.core.Keyword(null, "note-head-height", "note-head-height", -1994614138));
+melodicorn.level_2_3.render_2_clef = function render_2_clef(p__11303, p__11304) {
+  var vec__11307 = p__11303;
+  var x = cljs.core.nth.call(null, vec__11307, 0, null);
+  var y = cljs.core.nth.call(null, vec__11307, 1, null);
+  var map__11308 = p__11304;
+  var map__11308__$1 = cljs.core.seq_QMARK_.call(null, map__11308) ? cljs.core.apply.call(null, cljs.core.hash_map, map__11308) : map__11308;
+  var note_head_width = cljs.core.get.call(null, map__11308__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
+  var note_head_height = cljs.core.get.call(null, map__11308__$1, new cljs.core.Keyword(null, "note-head-height", "note-head-height", -1994614138));
   return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "clef", "clef", -258834324), x * note_head_width, melodicorn.level_2_3.position_from_stave_coordinate.call(null, y, note_head_height)], null)], null);
 };
-melodicorn.level_2_3.render_2_key_signature = function render_2_key_signature(p__5212, p__5213) {
-  var vec__5216 = p__5212;
-  var x = cljs.core.nth.call(null, vec__5216, 0, null);
-  var y = cljs.core.nth.call(null, vec__5216, 1, null);
-  var map__5217 = p__5213;
-  var map__5217__$1 = cljs.core.seq_QMARK_.call(null, map__5217) ? cljs.core.apply.call(null, cljs.core.hash_map, map__5217) : map__5217;
-  var note_head_width = cljs.core.get.call(null, map__5217__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
+melodicorn.level_2_3.render_2_key_signature = function render_2_key_signature(p__11309, p__11310) {
+  var vec__11313 = p__11309;
+  var x = cljs.core.nth.call(null, vec__11313, 0, null);
+  var y = cljs.core.nth.call(null, vec__11313, 1, null);
+  var map__11314 = p__11310;
+  var map__11314__$1 = cljs.core.seq_QMARK_.call(null, map__11314) ? cljs.core.apply.call(null, cljs.core.hash_map, map__11314) : map__11314;
+  var note_head_width = cljs.core.get.call(null, map__11314__$1, new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355));
   return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "key-signature", "key-signature", 1212039621), x * note_head_width, y], null)], null);
 };
 melodicorn.level_2_3.render_2_dispatch = new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null, "trace-box", "trace-box", -1995022355), melodicorn.level_2_3.render_2_trace_box, new cljs.core.Keyword(null, "clef", "clef", -258834324), melodicorn.level_2_3.render_2_clef, new cljs.core.Keyword(null, "key-signature", "key-signature", 1212039621), melodicorn.level_2_3.render_2_key_signature, new cljs.core.Keyword(null, "note", "note", 1426297904), melodicorn.level_2_3.render_2_note, new cljs.core.Keyword(null, 
 "bar-line", "bar-line", -1088510362), melodicorn.level_2_3.render_2_bar_line, new cljs.core.Keyword(null, "double-bar-line", "double-bar-line", -1791229174), melodicorn.level_2_3.render_2_double_bar_line], null);
-melodicorn.level_2_3.render_2_entity = function render_2_entity(layout_parameters, p__5218) {
-  var vec__5220 = p__5218;
-  var entity = cljs.core.nth.call(null, vec__5220, 0, null);
-  var args = cljs.core.nthnext.call(null, vec__5220, 1);
+melodicorn.level_2_3.render_2_entity = function render_2_entity(layout_parameters, p__11315) {
+  var vec__11317 = p__11315;
+  var entity = cljs.core.nth.call(null, vec__11317, 0, null);
+  var args = cljs.core.nthnext.call(null, vec__11317, 1);
   var fun = cljs.core.get.call(null, melodicorn.level_2_3.render_2_dispatch, entity);
   var result = fun.call(null, args, layout_parameters);
   return result;
 };
-melodicorn.level_2_3.translate_entity = function translate_entity(xx, yy, p__5221) {
-  var vec__5223 = p__5221;
-  var entity_type = cljs.core.nth.call(null, vec__5223, 0, null);
-  var x = cljs.core.nth.call(null, vec__5223, 1, null);
-  var y = cljs.core.nth.call(null, vec__5223, 2, null);
-  var the_rest = cljs.core.nthnext.call(null, vec__5223, 3);
+melodicorn.level_2_3.translate_entity = function translate_entity(xx, yy, p__11318) {
+  var vec__11320 = p__11318;
+  var entity_type = cljs.core.nth.call(null, vec__11320, 0, null);
+  var x = cljs.core.nth.call(null, vec__11320, 1, null);
+  var y = cljs.core.nth.call(null, vec__11320, 2, null);
+  var the_rest = cljs.core.nthnext.call(null, vec__11320, 3);
   return cljs.core.concat.call(null, new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [entity_type, xx + x, yy + y], null), the_rest);
 };
 melodicorn.level_2_3.handle_2_system = function handle_2_system(entity, accumulator) {
@@ -29547,13 +29568,13 @@ melodicorn.level_2_3.handle_2_system = function handle_2_system(entity, accumula
   var translated_entities = cljs.core.map.call(null, translation, rendered_content_flat);
   return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.conj.call(null, translated_entities, stave), accumulator], null);
 };
-melodicorn.level_2_3.handle_2_trace_box = function handle_2_trace_box(p__5224, accumulator) {
-  var map__5226 = p__5224;
-  var map__5226__$1 = cljs.core.seq_QMARK_.call(null, map__5226) ? cljs.core.apply.call(null, cljs.core.hash_map, map__5226) : map__5226;
-  var x = cljs.core.get.call(null, map__5226__$1, new cljs.core.Keyword(null, "x", "x", 2099068185));
-  var y = cljs.core.get.call(null, map__5226__$1, new cljs.core.Keyword(null, "y", "y", -1757859776));
-  var width = cljs.core.get.call(null, map__5226__$1, new cljs.core.Keyword(null, "width", "width", -384071477));
-  var height = cljs.core.get.call(null, map__5226__$1, new cljs.core.Keyword(null, "height", "height", 1025178622));
+melodicorn.level_2_3.handle_2_trace_box = function handle_2_trace_box(p__11321, accumulator) {
+  var map__11323 = p__11321;
+  var map__11323__$1 = cljs.core.seq_QMARK_.call(null, map__11323) ? cljs.core.apply.call(null, cljs.core.hash_map, map__11323) : map__11323;
+  var x = cljs.core.get.call(null, map__11323__$1, new cljs.core.Keyword(null, "x", "x", 2099068185));
+  var y = cljs.core.get.call(null, map__11323__$1, new cljs.core.Keyword(null, "y", "y", -1757859776));
+  var width = cljs.core.get.call(null, map__11323__$1, new cljs.core.Keyword(null, "width", "width", -384071477));
+  var height = cljs.core.get.call(null, map__11323__$1, new cljs.core.Keyword(null, "height", "height", 1025178622));
   return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "trace-box", "trace-box", -1995022355), x, y, width, height], null)], null), accumulator], null);
 };
 melodicorn.level_2_3.translate_2_3_f_dispatch = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "system", "system", -29381724), melodicorn.level_2_3.handle_2_system, new cljs.core.Keyword(null, "trace-box", "trace-box", -1995022355), melodicorn.level_2_3.handle_2_trace_box], null);
@@ -29561,9 +29582,9 @@ melodicorn.level_2_3.translate_2_3_f = function translate_2_3_f(entity, accumula
   var entity_type = (new cljs.core.Keyword(null, "type", "type", 1174270348)).cljs$core$IFn$_invoke$arity$1(entity);
   var func = cljs.core.get.call(null, melodicorn.level_2_3.translate_2_3_f_dispatch, entity_type);
   var result = func.call(null, entity, accumulator);
-  var vec__5228 = result;
-  var entity__$1 = cljs.core.nth.call(null, vec__5228, 0, null);
-  var accumulator__$1 = cljs.core.nth.call(null, vec__5228, 1, null);
+  var vec__11325 = result;
+  var entity__$1 = cljs.core.nth.call(null, vec__11325, 0, null);
+  var accumulator__$1 = cljs.core.nth.call(null, vec__11325, 1, null);
   return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [entity__$1, accumulator__$1], null);
 };
 melodicorn.level_2_3.translate_2_3 = function translate_2_3(input, layout_parameters) {
@@ -29589,25 +29610,25 @@ melodicorn.demo.example_level_0 = new cljs.core.PersistentVector(null, 21, 5, cl
 -1, 1, 4], null), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "bar-line", "bar-line", -1088510362)], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "clef", "clef", -258834324), new cljs.core.Keyword(null, "treble", "treble", 52574203)], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", 
 "note", 1426297904), 0, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), 0, 1, 4], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 2, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), 0, 1, 4], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 4, new cljs.core.Keyword(null, 
 "no-accidental", "no-accidental", 1156901777), 0, 1, 4], null), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "bar-line", "bar-line", -1088510362)], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 0, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), 1, 1, 4], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, 
-[new cljs.core.Keyword(null, "note", "note", 1426297904), 4, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), 0, 1, 4], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 2, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), 0, 1, 4], null), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "bar-line", 
+[new cljs.core.Keyword(null, "note", "note", 1426297904), 5, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), 1, 1, 4], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 8, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), 1, 1, 4], null), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "bar-line", 
 "bar-line", -1088510362)], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "clef", "clef", -258834324), new cljs.core.Keyword(null, "bass", "bass", -685024665)], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 0, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), 0, 1, 4], null), new cljs.core.PersistentVector(null, 
 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 4, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), -1, 1, 4], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 2, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), -1, 1, 4], null), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, 
-[new cljs.core.Keyword(null, "bar-line", "bar-line", -1088510362)], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 0, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), -1, 1, 4], null), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "double-bar-line", "double-bar-line", -1791229174)], null)], null);
+[new cljs.core.Keyword(null, "bar-line", "bar-line", -1088510362)], null), new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "note", "note", 1426297904), 1, new cljs.core.Keyword(null, "no-accidental", "no-accidental", 1156901777), -1, 1, 5], null), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "double-bar-line", "double-bar-line", -1791229174)], null)], null);
 melodicorn.demo.layout_parameters = cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "page-width", "page-width", 185039201), new cljs.core.Keyword(null, "page-height", "page-height", 1988560834), new cljs.core.Keyword(null, "note-head-height", "note-head-height", -1994614138), new cljs.core.Keyword(null, "trace-margins", "trace-margins", -1301247863), new cljs.core.Keyword(null, "margin-left", "margin-left", 2015598377), new cljs.core.Keyword(null, "margin-top", "margin-top", 392161226), 
 new cljs.core.Keyword(null, "margin-right", "margin-right", 809689658), new cljs.core.Keyword(null, "note-head-width", "note-head-width", 1024335355), new cljs.core.Keyword(null, "margin-bottom", "margin-bottom", 388334941)], [1E3, 250, 15, true, 10, 50, 10, 20, 15]);
-var errors_5130 = melodicorn.level_0.validate_0.call(null, melodicorn.demo.example_level_0);
-var ok_5131 = cljs.core._EQ_.call(null, 0, cljs.core.count.call(null, errors_5130));
-if (!ok_5131) {
-  console.log("Errors:", "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(errors_5130));
+var errors_11361 = melodicorn.level_0.validate_0.call(null, melodicorn.demo.example_level_0);
+var ok_11362 = cljs.core._EQ_.call(null, 0, cljs.core.count.call(null, errors_11361));
+if (!ok_11362) {
+  console.log("Errors:", "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(errors_11361));
 } else {
-  var canvas_5132 = goog.dom.getElement("the-canvas");
-  var graphics_context_5133 = canvas_5132.getContext("2d");
-  var layer_1_5134 = melodicorn.level_0_1.translate_0_1.call(null, melodicorn.demo.example_level_0);
-  var layer_2_5135 = melodicorn.level_1_2.translate_1_2.call(null, layer_1_5134, melodicorn.demo.layout_parameters);
-  var layer_3_5136 = melodicorn.level_2_3.translate_2_3.call(null, layer_2_5135, melodicorn.demo.layout_parameters);
-  console.log("Render 0 to 1:", "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(layer_1_5134));
-  console.log("Render 1 to 2:", "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(layer_2_5135));
-  console.log("Render 2 to 3:", "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(layer_3_5136));
-  melodicorn.canvas.draw_3_canvas.call(null, graphics_context_5133, layer_3_5136);
+  var canvas_11363 = goog.dom.getElement("the-canvas");
+  var graphics_context_11364 = canvas_11363.getContext("2d");
+  var layer_1_11365 = melodicorn.level_0_1.translate_0_1.call(null, melodicorn.demo.example_level_0);
+  var layer_2_11366 = melodicorn.level_1_2.translate_1_2.call(null, layer_1_11365, melodicorn.demo.layout_parameters);
+  var layer_3_11367 = melodicorn.level_2_3.translate_2_3.call(null, layer_2_11366, melodicorn.demo.layout_parameters);
+  console.log("Render 0 to 1:", "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(layer_1_11365));
+  console.log("Render 1 to 2:", "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(layer_2_11366));
+  console.log("Render 2 to 3:", "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(layer_3_11367));
+  melodicorn.canvas.draw_3_canvas.call(null, graphics_context_11364, layer_3_11367);
 }
 ;

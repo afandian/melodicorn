@@ -48,3 +48,7 @@ and
 ### Nicer noteheads
 
 ![Screenshot 3](https://raw.githubusercontent.com/afandian/melodicorn/develop/docs/screenshots/18-10-2014/first.png)
+
+### Ledger Lines
+
+![Ledger lines](https://raw.githubusercontent.com/afandian/melodicorn/develop/docs/screenshots/19-10-2014/ledger-lines.png)

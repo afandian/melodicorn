@@ -28,12 +28,33 @@
 
 (defn render-2-note
   [[x y] {note-head-width :note-head-width note-head-height :note-head-height}]
-  
-  (let [head-y-pos (position-from-stave-coordinate y note-head-height)]
+  (let [head-y-pos (position-from-stave-coordinate y note-head-height)
+        note-head [:note-head (* x note-head-width) head-y-pos]
+        position (if (= y 0) :centre (if (> y 0) :above :below))
+        stem (if (#{:centre :below} position)
+                    [:up-stem (* x note-head-width) head-y-pos]
+                    [:down-stem (* x note-head-width) head-y-pos])
+        ; TODO the size of the stave is hard-coded. Derive this so it works for any-sized staves.
+        ledger-lines-above (let [distance-above-top-line (- y 4)]
+                             (when (> distance-above-top-line 0)
+                               (map (fn [y-pos]
+                                      [:ledger-line (* x note-head-width) (position-from-stave-coordinate y-pos note-head-height)])
+                                    (range distance-above-top-line))))
+        ledger-lines-below (map (fn [y-pos]
+                                ; Nudge over the top of y to make the upper bound of the range inclusive.
+                                [:ledger-line (* x note-head-width) (position-from-stave-coordinate y-pos note-head-height)])
+                             (range -6 (dec y) -2))
+        ledger-lines-above (map (fn [y-pos]
+                                [:ledger-line (* x note-head-width) (position-from-stave-coordinate y-pos note-head-height)])
+                             (range 6 (inc y) 2))
+        
+
+        ]
+    (concat [note-head stem] ledger-lines-above ledger-lines-below)
   ; TODO accidentals and duration.
-    (if (> y 0)
-      [[:note-head (* x note-head-width) head-y-pos] [:down-stem (* x note-head-width) head-y-pos]]
-      [[:note-head (* x note-head-width) head-y-pos] [:up-stem (* x note-head-width) head-y-pos]])))
+    )
+  
+  )
 
 (defn render-2-bar-line
   [[x y] {note-head-width :note-head-width}]

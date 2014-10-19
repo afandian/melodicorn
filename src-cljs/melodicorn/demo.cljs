@@ -8,7 +8,8 @@
 
 ; Demo drawing with a canvas.
 
-(def example-level-0 [[:clef :bass]
+(def example-level-0 [
+                      [:clef :bass]
                       [:note 0 :no-accidental -1 1 4]
                       [:note 2 :no-accidental -1 1 4] 
                       [:note 4 :no-accidental -1 1 4]
@@ -19,15 +20,15 @@
                       [:note 4 :no-accidental 0 1 4]
                       [:bar-line] 
                       [:note 0 :no-accidental 1 1 4]
-                      [:note 4 :no-accidental 0 1 4]
-                      [:note 2 :no-accidental 0 1 4]                      
+                      [:note 5 :no-accidental 1 1 4]
+                      [:note 8 :no-accidental 1 1 4]                      
                       [:bar-line]
                       [:clef :bass]
                       [:note 0 :no-accidental 0 1 4]
                       [:note 4 :no-accidental -1 1 4]
                       [:note 2 :no-accidental -1 1 4] 
                       [:bar-line]
-                      [:note 0 :no-accidental -1 1 4]
+                      [:note 1 :no-accidental -1 1 5]
                       [:double-bar-line]
                       
                       ])

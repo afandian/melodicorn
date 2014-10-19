@@ -59,9 +59,13 @@
   [ctx [x y]]
   (drawEllipseByCenter ctx true x y note-head-width note-head-height))  
 
+(defn draw-3-ledger-line
+  [ctx [x y]]
+  (.fillRect ctx (- x (* note-head-width 0.75)) y (* note-head-width 1.5) 2))
+
 (defn draw-3-up-stem
   [ctx [x y]]
-  (.fillRect ctx (- (+ x (/ note-head-width 2)) 2) (- y stem-height) 2 stem-height)))
+  (.fillRect ctx (- (+ x (/ note-head-width 2)) 2) (- y stem-height) 2 stem-height))
 
 (defn draw-3-down-stem
   [ctx [x y]]
@@ -95,7 +99,8 @@
    :up-stem draw-3-up-stem
    :down-stem draw-3-down-stem
    :bar-line draw-3-bar-line
-   :double-bar-line draw-3-double-bar-line})
+   :double-bar-line draw-3-double-bar-line
+   :ledger-line draw-3-ledger-line})
 
 (defn draw-3-glyph
   [context glyph]
