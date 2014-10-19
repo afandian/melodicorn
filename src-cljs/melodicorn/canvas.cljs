@@ -27,8 +27,10 @@
   (.bezierCurveTo ctx (+ xm ox) ty xe (- ym oy) xe ym)
   (.bezierCurveTo ctx xe (+ ym oy) (+ xm ox) ye xm ye)  
   (.bezierCurveTo ctx (- xm ox) ye tx (+ ym oy) tx ym)  
-  (when fill? (.fill ctx))
-  (.stroke ctx)))
+  (aset ctx "lineWidth" "2")
+  (if fill?
+    (.fill ctx)
+    (.stroke ctx))))
 
 (defn drawEllipseByCenter [ctx fill? cx cy w h] 
   (.save ctx)
@@ -36,6 +38,14 @@
   (.transform ctx 1 (Math/tan (* -10 (/ Math/PI 180))) 0 1 0 0)  
   (drawEllipse ctx true (- 0 (/ w 2.0)) (- 0 (/ h 2.0)) w h)
   (.restore ctx))
+
+(defn drawEmptyEllipseByCenter [ctx fill? cx cy w h] 
+  (.save ctx)
+  (.translate ctx cx cy)
+  (.transform ctx 1 (Math/tan (* -10 (/ Math/PI 180))) 0 1 0 0)  
+  (drawEllipse ctx false (- 0 (/ w 2.0)) (- 0 (/ h 2.0)) w h)
+  (.restore ctx))
+
 
 (defn position-on-stave [y]
   "Given a line-coordinate position on the stave relative to the middle line, return y position."
@@ -54,10 +64,13 @@
   (.fillRect ctx x (+ y (position-on-stave 1)) width 2)
   (.fillRect ctx x (+ y (position-on-stave 2)) width 2))
 
-
-(defn draw-3-note-head
+(defn draw-3-filled-note-head
   [ctx [x y]]
   (drawEllipseByCenter ctx true x y note-head-width note-head-height))  
+
+(defn draw-3-empty-note-head
+  [ctx [x y]]
+  (drawEmptyEllipseByCenter ctx true x y note-head-width note-head-height))  
 
 (defn draw-3-ledger-line
   [ctx [x y]]
@@ -70,6 +83,36 @@
 (defn draw-3-down-stem
   [ctx [x y]]
   (.fillRect ctx (+ (- x (/ note-head-width 2)) 0) y 2 stem-height))
+
+
+(defn draw-3-up-quaver-tail
+  [ctx [x y]]
+  (.beginPath ctx)
+  (.moveTo ctx (- (+ x (/ note-head-width 2)) 2) (- y stem-height))
+  (.lineTo ctx (+ x (/ note-head-width 2) (/ note-head-width 2)) (+ (- y stem-height) (/ stem-height 2)))
+  (.stroke ctx)  
+)
+(defn draw-3-down-quaver-tail
+  [ctx [x y]]
+  (.beginPath ctx)
+  ; TODO
+  (.stroke ctx)  
+)
+(defn draw-3-up-semiquaver-tail
+  [ctx [x y]]
+  (.beginPath ctx)
+  (.moveTo ctx (- (+ x (/ note-head-width 2)) 2) (- y stem-height))
+  (.lineTo ctx (+ x (/ note-head-width 2) (/ note-head-width 2)) (+ (- y stem-height) (/ stem-height 2)))
+  (.moveTo ctx (- (+ x (/ note-head-width 2)) 2) (+ (- y stem-height) note-head-height))
+  (.lineTo ctx (+ x (/ note-head-width 2) (/ note-head-width 2)) (+ (- y stem-height) (/ stem-height 2) note-head-height))
+  (.stroke ctx)  
+)
+(defn draw-3-down-semiquaver-tail
+  [ctx [x y]]
+  (.beginPath ctx)
+  ; TODO
+  (.stroke ctx)  
+)
 
 (defn draw-3-bar-line
   [ctx [x y]]
@@ -95,20 +138,30 @@
    :stave draw-3-stave
    :key-signature draw-3-key-signature
    :clef draw-3-clef
-   :note-head draw-3-note-head
+   :filled-note-head draw-3-filled-note-head
+   :empty-note-head draw-3-empty-note-head
    :up-stem draw-3-up-stem
    :down-stem draw-3-down-stem
    :bar-line draw-3-bar-line
    :double-bar-line draw-3-double-bar-line
-   :ledger-line draw-3-ledger-line})
+   :ledger-line draw-3-ledger-line
+   :up-quaver-tail draw-3-up-quaver-tail
+   :down-quaver-tail draw-3-down-quaver-tail
+   :up-semiquaver-tail draw-3-up-semiquaver-tail
+   :down-semiquaver-tail draw-3-down-semiquaver-tail
+   })
 
 (defn draw-3-glyph
   [context glyph]
   (let [glyph-type (first glyph)
         fun (get draw-3-glyph-dispatch glyph-type)
         ]
-    (fun context (rest glyph)))
-  )
+    (if fun
+      (fun context (rest glyph))
+      (.log js/console "UNRECOGNISED " glyph-type)
+      )
+    
+  ))
 
 (defn draw-3-canvas
   [context layer-3-input]

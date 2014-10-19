@@ -27,13 +27,27 @@
   [[:trace-box x y width height]])
 
 (defn render-2-note
-  [[x y] {note-head-width :note-head-width note-head-height :note-head-height}]
+  [[x y notehead-type] {note-head-width :note-head-width note-head-height :note-head-height}]
   (let [head-y-pos (position-from-stave-coordinate y note-head-height)
-        note-head [:note-head (* x note-head-width) head-y-pos]
+        note-head (if (#{:crotchet :quaver :semiquaver} notehead-type)
+                   [:filled-note-head (* x note-head-width) head-y-pos]
+                   (if (#{:minim :semibreve} notehead-type)
+                     [:empty-note-head (* x note-head-width) head-y-pos]
+                     ; Unrecognised, normal head.
+                     [:filled-note-head (* x note-head-width) head-y-pos]))
         position (if (= y 0) :centre (if (> y 0) :above :below))
-        stem (if (#{:centre :below} position)
+        stem (when (#{:crotchet :quaver :semiquaver :minim} notehead-type)
+               (if (#{:centre :below} position)
                     [:up-stem (* x note-head-width) head-y-pos]
-                    [:down-stem (* x note-head-width) head-y-pos])
+                    [:down-stem (* x note-head-width) head-y-pos]))
+        tail (condp = notehead-type
+               :quaver (if (#{:centre :below} position)
+                         [:up-quaver-tail (* x note-head-width) head-y-pos]
+                         [:down-quaver-tail (* x note-head-width) head-y-pos])
+               :semiquaver (if (#{:centre :below} position)
+                         [:up-semiquaver-tail (* x note-head-width) head-y-pos]
+                         [:down-semiquaver-tail (* x note-head-width) head-y-pos])
+               nil)
         ; TODO the size of the stave is hard-coded. Derive this so it works for any-sized staves.
         ledger-lines-above (let [distance-above-top-line (- y 4)]
                              (when (> distance-above-top-line 0)
@@ -50,7 +64,8 @@
         
 
         ]
-    (concat [note-head stem] ledger-lines-above ledger-lines-below)
+    
+    (remove nil? (concat [note-head stem tail] ledger-lines-above ledger-lines-below))
   ; TODO accidentals and duration.
     )
   

@@ -11,24 +11,39 @@
 (def example-level-0 [
                       [:clef :bass]
                       [:note 0 :no-accidental -1 1 4]
-                      [:note 2 :no-accidental -1 1 4] 
-                      [:note 4 :no-accidental -1 1 4]
+                      [:note 2 :no-accidental -1 1 8] 
+                      [:note 4 :no-accidental -1 1 8]
+                      [:note 0 :no-accidental -1 1 4]
+                      [:note 2 :no-accidental -1 1 8] 
+                      [:note 4 :no-accidental -1 1 8]
+                      [:note 2 :no-accidental -1 1 16] 
+                      [:note 4 :no-accidental -1 1 16]
                       [:bar-line] 
                       [:clef :treble]
-                      [:note 0 :no-accidental 0 1 4]
-                      [:note 2 :no-accidental 0 1 4]
-                      [:note 4 :no-accidental 0 1 4]
-                      [:bar-line] 
+                      [:note 0 :no-accidental 0 2 4]
+                      [:note 2 :no-accidental 0 2 4]
+                      [:bar-line]
+                      [:note 0 :no-accidental 0 1 8]
+                      [:note 2 :no-accidental 0 1 8]
+                      [:note 0 :no-accidental 0 1 16]
+                      [:note 2 :no-accidental 0 1 16]
+                      [:note 0 :no-accidental 0 1 16]
+                      [:note 2 :no-accidental 0 1 16]
+
+                      [:bar-line]
+
                       [:note 0 :no-accidental 1 1 4]
-                      [:note 5 :no-accidental 1 1 4]
-                      [:note 8 :no-accidental 1 1 4]                      
+                      [:note 5 :no-accidental 1 1 8]
+                      [:note 8 :no-accidental 1 1 8]                      
+                      [:note 5 :no-accidental 1 1 16]
+                      [:note 8 :no-accidental 1 1 16]                      
                       [:bar-line]
                       [:clef :bass]
                       [:note 0 :no-accidental 0 1 4]
                       [:note 4 :no-accidental -1 1 4]
                       [:note 2 :no-accidental -1 1 4] 
                       [:bar-line]
-                      [:note 1 :no-accidental -1 1 5]
+                      [:note 1 :no-accidental -1 1 1]
                       [:double-bar-line]
                       
                       ])
@@ -38,7 +53,7 @@
 
 
 (def layout-parameters {
-    :page-width 1000
+    :page-width 1400
     :page-height 250
     :margin-left 10
     :margin-right 10

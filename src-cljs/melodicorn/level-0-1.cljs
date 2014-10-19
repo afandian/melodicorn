@@ -65,10 +65,21 @@
 
 (defn handle-0-note
   [[_ pitch-class accidentals octave duration-numerator duration-denominator] accumulator]
+  (.log js/console "dndd" duration-numerator duration-denominator)
   (let [; Which white note.
         absolute-diatonic-position (+ (* octave 7) pitch-class)
-        position-on-stave (+ (:middle-c-offset accumulator) absolute-diatonic-position)]
-  [[:note (:x accumulator) position-on-stave]
+        position-on-stave (+ (:middle-c-offset accumulator) absolute-diatonic-position)
+        
+        notehead-type (condp = (/ duration-numerator duration-denominator)
+                        (/ 1 1):semibreve
+                        (/ 1 2):minim
+                        (/ 1 4):crotchet
+                        (/ 1 8):quaver
+                        (/ 1 16) :semiquaver
+                        :other
+                        )
+        ]
+  [[:note (:x accumulator) position-on-stave notehead-type]
    (util/acc-apply accumulator :x util/inc-2)]))
 
 (defn handle-0-bar

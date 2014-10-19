@@ -52,3 +52,7 @@ and
 ### Ledger Lines
 
 ![Ledger lines](https://raw.githubusercontent.com/afandian/melodicorn/develop/docs/screenshots/19-10-2014/ledger-lines.png)
+
+### Different durations (noteheads and stems)
+
+![Ledger lines](https://raw.githubusercontent.com/afandian/melodicorn/develop/docs/screenshots/19-10-2014/durations.png)
